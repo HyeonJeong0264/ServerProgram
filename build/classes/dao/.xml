@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.product">
+	<!-- 1. 제품 목록 -->
+	<select id="selectList" resultType="dto.Product">
+		SELECT PNO, NAME, PRICE, MADE
+		  FROM PRODUCT
+		 ORDER BY PNO
+	</select>
+	
+	<!-- 2. 제품명 중복 체크 -->
+	<select id="nameCheck" resultType="dto.Product">
+		SELECT PNO
+		  FROM PRODUCT
+		 WHERE NAME=#{name}
+	</select>
+	<!-- 3. 마지막 등록 제품명 확인 -->
+	<select id="selectLastProduct" resultType="dto.Product">
+		SELECT NAME
+		  FROM (SELECT NAME FROM PRODUCT ORDER BY MADE DESC)
+		 WHERE ROWNUM=1
+	</select>
+	<!-- 4. 제품 등록 -->
+	<select id="insert" parameterType="dto.Product">
+		INSERT INTO PRODUCT
+		VALUES (PRODUCT_SEQ.NEXTVAL, #{name}, #{price}, SYSDATE)
+	</select>
+	<!-- 5. 제품 삭제 -->
+	<select id="delete" parameterType="Long">
+		DELETE 
+		  FROM PRODUCT
+		 WHERE PNO = #{pno} 
+	</select>
+	
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="dao.members">
+	<!-- 1. 제품 목록 -->
+	<select id="selectList" resultType="dto.MemberDTO">
+		SELECT NO, ID, NAME, GRADE, POINT
+		  FROM MEMBERS
+		 ORDER BY NO
+	</select>
+	<!-- 2. 로그인 성공 실패 체크 -->
+	<select id="selectMember" resultType="dto.MemberDTO">
+		SELECT NO, ID, NAME, GRADE, POINT
+		  FROM MEMBERS
+		 WHERE ID=#{id} AND NAME=#{name}
+	</select>
+	<!-- 3. 멤버삽입 -->
+	<select id="insertMember" parameterType="Map">
+		INSERT INTO MEMBERS
+		VALUES(MEMBER_SEQ.NEXTVAL,#{id},#{name},'bronze',1000)
+	</select>
+	<!-- 4. 멤버탈퇴 -->
+	<select id="deleteMember" parameterType="Long">
+		DELETE FROM MEMBERS
+		 WHERE NO=#{no}
+	</select>
+		<!-- 멤버 수정 -->
+	<select id="updateMember" parameterType="dto.MemberDTO">
+		<![CDATA[UPDATE MEMBERS SET NAME=#{name}, POINT=#{point} where NO=#{no}]]>
+		<![CDATA[update members set grade=(case when point>0 and point <3000 then 'bronze' when point>=3000 and point<4000 then 'silver' when point>=4000 and point<5000 then 'gold' else 'vip' end)]]>
+	</select>
+	
+</mapper>
