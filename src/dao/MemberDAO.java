@@ -83,5 +83,11 @@ public class MemberDAO {
 	
 		return result;
 	}
+	public List<MemberDTO> selectTop1List() {
+		SqlSession ss = factory.openSession();
+		List<MemberDTO> top1List = ss.selectOne("dao.members.selectTop1List");
+		ss.close();
+		return top1List;
+	}
 	
 }
