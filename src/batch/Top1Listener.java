@@ -15,12 +15,12 @@ import org.quartz.impl.StdSchedulerFactory;
 
 
 @WebListener
-public class Top3Listener implements ServletContextListener {
+public class Top1Listener implements ServletContextListener {
 
 	/* field */
 	private  Scheduler scheduler;
 	
-    public Top3Listener() {
+    public Top1Listener() {
         try {
         	scheduler = new StdSchedulerFactory().getScheduler();
         }catch(Exception e) {
@@ -42,7 +42,7 @@ public class Top3Listener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce)  { 
          try {
         	 // 1) Top3Job
-        	 JobDetail job = JobBuilder.newJob(Top3Job.class)
+        	 JobDetail job = JobBuilder.newJob(Top1Job.class)
         			 .withIdentity("job3","group3")
         			 .build();
         	 // 2) Trigger

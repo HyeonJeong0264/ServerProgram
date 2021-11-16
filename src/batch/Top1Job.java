@@ -12,7 +12,7 @@ import org.quartz.JobExecutionException;
 import dao.MemberDAO;
 import dto.MemberDTO;
 
-public class Top3Job implements Job {
+public class Top1Job implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {

@@ -28,10 +28,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	<!-- 멤버 수정 -->
 	<select id="updateMember" parameterType="dto.MemberDTO">
-		<![CDATA[UPDATE MEMBERS SET NAME=#{name}, POINT=#{point} where NO=#{no}]]>
-		<![CDATA[update members set grade=(case when point>0 and point <3000 then 'bronze' when point>=3000 and point<4000 then 'silver' when point>=4000 and point<5000 then 'gold' else 'vip' end)]]>
+		<![CDATA[UPDATE MEMBERS SET NAME=#{name}, POINT=#{point}, grade=(case when point>0 and point <3000 then 'bronze' when point>=3000 and point<4000 then 'silver' when point>=4000 and point<5000 then 'gold' else 'vip' end) where NO=#{no}]]>
+
 	</select>
-	<!--  8. 평균 점수 top1 조회 -->
+	<!--  평균 점수 top1 조회 -->
 	<select id="selectTop1List" resultType="dto.MemberDTO">
 		SELECT a.NO, a.ID, a.NAME, a.GRADE, a.POINT
 		  FROM  (SELECT NO, ID, NAME, GRADE, POINT
